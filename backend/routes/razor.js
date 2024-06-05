@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const razorController = require("../controllers/razorpay");
+const razorController = require("../controllers/razorController");
 router.get("/", (req, res) => {
     res.json({ message: "Success" });
   });
