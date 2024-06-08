@@ -2,22 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch ,fabadge,faShoppingCart, prefix, faMarsAndVenus, faHamburger, faHammer} from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { UNSAFE_ErrorResponseImpl } from "react-router-dom";
-// import { Search, ShoppingCartOutlined } from '@mui/icons-material';
-// import { Badge, Avatar, Box, IconButton, Menu } from '@mui/material';
+import {Box,IconButton,Avatar,Menu} from "@mui/material";
+
 
 const Container = styled.div`
-  height: 60px;
+  height: 70px;
   ${mobile({
     height: "50px",
   })}
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  padding: 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -102,9 +104,44 @@ const Logout = styled.div`
   cursor: pointer;
   padding: 5px 10px;
 `;
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+  };
+}
 
 function Navbar() {
   const user = useSelector((state) => state.user);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   return (
     <>
       {/* <div>Navbar</div> */}
@@ -128,19 +165,41 @@ function Navbar() {
             </Logo>
           </Center>
           <Right>
-            {user ? (
-              <>
-                <>
-                <Logout
-                  onClick={() => {
-                    localStorage.clear();
-                    window.location.href = '/';
+            {user.current ? (
+              <Box>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    {...stringAvatar(
+                      `${user.current.firstName} ${user.current.lastName}`
+                    )}
+                  />
+                </IconButton>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
                   }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  Sign Out
-                </Logout>
-                </>
-              </>
+                  <Logout
+                    onClick={() => {
+                      localStorage.clear();
+                      window.location.href = "/";
+                    }}
+                  >
+                    Sign Out
+                  </Logout>
+                </Menu>
+              </Box>
             ) : (
               <>
                 <Link to="/register">
@@ -152,10 +211,13 @@ function Navbar() {
               </>
             )}
             <MenuItem>
-            <Link to="/cart">
-              <FontAwesomeIcon icon={faShoppingCart} style={{ color: "primary" }} />
-            </Link>
-          </MenuItem>
+              <Link to="/cart">
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  style={{ color: "primary" }}
+                />
+              </Link>
+            </MenuItem>
           </Right>
         </Wrapper>
       </Container>
