@@ -5,6 +5,7 @@ import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg
 import { mobile } from '../responsive'
 import { faEnvelope, faPhoneFlip, faShop } from '@fortawesome/free-solid-svg-icons'
 import { faCcVisa, faCcMastercard, faCcAmex, faCcDiscover } from '@fortawesome/free-brands-svg-icons'
+import { Link } from 'react-router-dom'
 const Container = styled.div`
   display: flex;
   ${mobile({
@@ -74,6 +75,12 @@ const Payment = styled.img`
   width: 80%;
 `;
 function Footer() {
+  const handleHome = () => {
+    window.location.href = '/'
+  }
+  const handleCart = () => {
+    window.location.href = '/cart'
+  }
   return (
     <>
     {/* <div>Footer</div> */}
@@ -100,8 +107,8 @@ function Footer() {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
+          <ListItem onClick={handleHome}>Home</ListItem>
+          <ListItem onClick={handleCart}>Cart</ListItem>
           <ListItem>Men Fashion</ListItem>
           <ListItem>Women Fashion</ListItem>
           <ListItem>Accessories</ListItem>
