@@ -1,11 +1,14 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { faArrowAltCircleRight, faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowAltCircleRight,
+  faArrowAltCircleLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { sliderItems } from '../data';
+import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-
+import { Link } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -13,7 +16,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   ${mobile({
-    display: 'none',
+    display: "none",
   })}
 `;
 
@@ -78,24 +81,26 @@ const Button = styled.button`
   cursor: pointer;
 `;
 function IndSlide({ bg, title, desc, img }) {
-    return (
-      <Slide bg={bg}>
-        <ImageContainer>
-          <Image src={img} />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>{title}</Title>
-          <Desc>{desc}</Desc>
+  return (
+    <Slide bg={bg}>
+      <ImageContainer>
+        <Image src={img} />
+      </ImageContainer>
+      <InfoContainer>
+        <Title>{title}</Title>
+        <Desc>{desc}</Desc>
+        <Link to={"/products/"}>
           <Button>SHOW NOW</Button>
-        </InfoContainer>
-      </Slide>
-    );
-  }
+        </Link>
+      </InfoContainer>
+    </Slide>
+  );
+}
 
 function Slider() {
-    const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const handleClick = (direction) => {
-    if (direction === 'left') {
+    if (direction === "left") {
       setIndex(index > 0 ? index - 1 : 2);
     } else {
       setIndex(index < 2 ? index + 1 : 0);
@@ -103,20 +108,25 @@ function Slider() {
   };
   return (
     <>
-
       <Container>
-      <Arrow direction="left" onClick={() => handleClick('left')}>
-        <FontAwesomeIcon icon={faArrowAltCircleLeft} />
-      </Arrow>
-      <Wrapper index={index} >
-        {sliderItems.map((item,i) => (
-          <IndSlide key={i} bg={item.bg} title={item.title} desc={item.desc} img={item.img}/>
-        ))}
-      </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick('right')}>
-        <FontAwesomeIcon icon={faArrowAltCircleRight} />
-      </Arrow>
-    </Container>
+        <Arrow direction="left" onClick={() => handleClick("left")}>
+          <FontAwesomeIcon icon={faArrowAltCircleLeft} />
+        </Arrow>
+        <Wrapper index={index}>
+          {sliderItems.map((item, i) => (
+            <IndSlide
+              key={i}
+              bg={item.bg}
+              title={item.title}
+              desc={item.desc}
+              img={item.img}
+            />
+          ))}
+        </Wrapper>
+        <Arrow direction="right" onClick={() => handleClick("right")}>
+          <FontAwesomeIcon icon={faArrowAltCircleRight} />
+        </Arrow>
+      </Container>
     </>
   );
 }
