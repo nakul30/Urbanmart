@@ -4,6 +4,7 @@ const verifyPermission = require("../middlewares/verifyPermission");
 const verifyToken = require("../middlewares/verifyToken");
 const verifyAdmin = require("../middlewares/verifyAdmin");
 const cartController = require("../controllers/cartController");
+const addUserIdToBody = require("../middlewares/addUserToBody");
 router.get("/", (req, res) => {
   res.json({ message: "Success" });
 });
@@ -17,5 +18,6 @@ router.get(
   verifyPermission,
   cartController.getCart
 );
+
 router.get("/all", verifyToken, verifyAdmin, cartController.getAllCarts);
 module.exports = router;
