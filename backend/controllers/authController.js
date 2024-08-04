@@ -53,7 +53,7 @@ module.exports.login = async function (req, res) {
         .status(401)
         .json({ message: "Wrong email address or password" });
     }
-    const compare = bcrypt.compare(password, user.password);
+    const compare = await bcrypt.compare(password, user.password);
     if (!compare) {
       return res
         .status(401)
