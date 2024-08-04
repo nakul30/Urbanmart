@@ -51,6 +51,7 @@ module.exports.createCart = async function (req, res) {
       return res.json(savedCart);
     }
   } catch (err) {
+    console.log("from cathc block of create cart")
     return res.status(500).json({ message: err.message });
   }
 };
@@ -74,20 +75,15 @@ module.exports.deleteCart = async function (req, res) {
     return res.status(500).json({ message: err.message });
   }
 };
-// module.exports.getCart = async function (req, res) {
-//   try {
-//     const cart = await Cart.find({ userId: req.params.userId });
-//     return res.json(cart);
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message });
-//   }
-// };
+
+
 module.exports.getCart = async function (req, res) {
-  console.log("Here");
+  console.log("Here from get cart");
   const userId = req.params.userId;
   console.log("userId", userId);
 
   try {
+    // Find the cart for the given userId
     const cart = await Cart.findOne({ userId });
 
     if (!cart) {
@@ -99,29 +95,53 @@ module.exports.getCart = async function (req, res) {
       });
     }
 
+    console.log("cart", cart);
+
+    // Fetch product details for each item in the cart
     const productsWithDetails = await Promise.all(
       cart.products.map(async (cartProduct) => {
-        const productDetails = await Product.findById(cartProduct.productId).lean();
-        return {
-          ...productDetails,
-          quantity: cartProduct.quantity,
-        };
+        try {
+          const productDetails = await Product.findById(cartProduct.productId).lean();
+          // console.log("productDetails---------------------------------------", productDetails);
+
+          // If product details are found, return them with quantity
+          if (productDetails) {
+            return {
+              ...productDetails,
+              quantity: cartProduct.quantity,
+            };
+          } else {
+            console.warn(`No product found with ID ${cartProduct.productId}`);
+            return null; // Handle cases where product details are not found
+          }
+        } catch (error) {
+          console.error(`Error fetching details for productId ${cartProduct.productId}:`, error);
+          return null; // Handle errors while fetching product details
+        }
       })
     );
 
-    const totalQuantity = productsWithDetails.length;
-    const totalPrice = productsWithDetails.reduce(
+    // Filter out null values in case of errors or missing product details
+    const validProducts = productsWithDetails.filter(product => product !== null);
+
+    // console.log("-------------------------------------------------------------------------------");
+
+    // Calculate total quantity and price
+    const totalQuantity = validProducts.reduce((total, product) => total + product.quantity, 0);
+    const totalPrice = validProducts.reduce(
       (total, product) => total + product.price * product.quantity,
       0
     );
 
+    // Send response with cart details
     return res.json({
       userId: cart.userId,
-      products: productsWithDetails,
+      products: validProducts,
       quantity: totalQuantity,
       totalPrice,
     });
   } catch (err) {
+    // Handle unexpected errors
     return res.status(500).json({ message: err.message });
   }
 };

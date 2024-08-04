@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {userRequest} from "../../requestMethods";
 
-const user =  JSON.parse(localStorage.getItem('user')) || null;
+const user =  await JSON.parse(localStorage.getItem('user')) || null;
 
 let response = null;
 if(user){

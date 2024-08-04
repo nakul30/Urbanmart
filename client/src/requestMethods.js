@@ -16,8 +16,23 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
   baseURL,
-  headers: { token : `Bearer ${token}` },
+  // headers: { token : `Bearer ${token}` },
 });
+userRequest.interceptors.request.use(
+  (config) => {
+    const user = localStorage.getItem("user");
+    const currentUser = user ? JSON.parse(user) : null;
+    const token = currentUser?.accessToken;
+
+    if (token) {
+      config.headers['token'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 const testUserRequest = async () => {
   try {

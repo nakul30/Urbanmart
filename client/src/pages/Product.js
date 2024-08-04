@@ -137,7 +137,7 @@ function Product() {
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
   const cart = useSelector(state=>state.cart);
-  console.log(cart, "cart Before ")
+  // console.log("cart Before ",cart)
   useEffect(() => {
 
     const getProduct = async () => {
@@ -160,7 +160,7 @@ function Product() {
       );
   };
   // cart = useSelector(state=>state.cart);
-  // console.log(cart, "cart After ")
+  // console.log( "cart After ",cart)
   return (
     <>
       {/* <div>Product</div> */}

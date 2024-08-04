@@ -11,8 +11,8 @@ export const authenticate =
     try {
       const response = await publicRequest.post(`/auth/${type}`, data);
       console.log("response", response.data.accessToken);
-      dispatch(authSuccess(response.data));
       localStorage.setItem('user', JSON.stringify(response.data));
+      await dispatch(authSuccess(response.data));
       console.log("rsuccess", response);
     } catch (error) {
       dispatch(authError(error.message));
