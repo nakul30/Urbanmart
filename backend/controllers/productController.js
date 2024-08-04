@@ -44,9 +44,9 @@ module.exports.getProduct = async function (req, res) {
 module.exports.getAllProducts = async function (req, res) {
   // res.json({ message: "Success" })
   const queryNew = req.query.new;
-  console.log("Query new ", queryNew); // from paramas it can be passed 
+  // console.log("Query new ", queryNew); // from paramas it can be passed 
   const queryCat = req.query.cat;
-  console.log("Query cat ", queryCat);
+  // console.log("Query cat ", queryCat);
 
   try {
     let products;

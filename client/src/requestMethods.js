@@ -30,6 +30,7 @@ userRequest.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log("No token in userRequest");
     return Promise.reject(error);
   }
 );

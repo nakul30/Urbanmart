@@ -16,7 +16,7 @@ const Product = require("../models/Product");
 //   }
 // };
 module.exports.createCart = async function (req, res) {
-  console.log("Here");
+  console.log("Create Cart Called");
 
   const userId = req.body.userId;
 
