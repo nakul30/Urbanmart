@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const db = require("./config/mongoose");
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:3000'] }));
+// app.use(cors({ origin: ['http://localhost:3000'] }));
+app.use(cors());
 app.get("/", (req, res) => {
   res.json({ message: "Success" });
 });
