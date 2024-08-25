@@ -1,8 +1,8 @@
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 // module.exports.createCart = async function (req, res) {
-//   console.log("here " ) ;
-//   // console.log("req From create CArt ", req.body.userId.id);
+//   // console.log("here " ) ;
+//   // // console.log("req From create CArt ", req.body.userId.id);
 
 //   // const id = req.body.userId.id;
 //   // const {data} = req
@@ -16,7 +16,7 @@ const Product = require("../models/Product");
 //   }
 // };
 module.exports.createCart = async function (req, res) {
-  console.log("Create Cart Called");
+  // // console.log("Create Cart Called");
 
   const userId = req.body.userId;
 
@@ -51,7 +51,7 @@ module.exports.createCart = async function (req, res) {
       return res.json(savedCart);
     }
   } catch (err) {
-    console.log("from cathc block of create cart")
+    // console.log("from cathc block of create cart")
     return res.status(500).json({ message: err.message });
   }
 };
@@ -78,9 +78,9 @@ module.exports.deleteCart = async function (req, res) {
 
 
 module.exports.getCart = async function (req, res) {
-  console.log("Here from get cart");
+  // console.log("Here from get cart");
   const userId = req.params.userId;
-  console.log("userId", userId);
+  // console.log("userId", userId);
 
   try {
     // Find the cart for the given userId
@@ -95,14 +95,14 @@ module.exports.getCart = async function (req, res) {
       });
     }
 
-    console.log("cart", cart);
+    // console.log("cart", cart);
 
     // Fetch product details for each item in the cart
     const productsWithDetails = await Promise.all(
       cart.products.map(async (cartProduct) => {
         try {
           const productDetails = await Product.findById(cartProduct.productId).lean();
-          // console.log("productDetails---------------------------------------", productDetails);
+          // // console.log("productDetails---------------------------------------", productDetails);
 
           // If product details are found, return them with quantity
           if (productDetails) {
@@ -124,7 +124,7 @@ module.exports.getCart = async function (req, res) {
     // Filter out null values in case of errors or missing product details
     const validProducts = productsWithDetails.filter(product => product !== null);
 
-    // console.log("-------------------------------------------------------------------------------");
+    // // console.log("-------------------------------------------------------------------------------");
 
     // Calculate total quantity and price
     const totalQuantity = validProducts.reduce((total, product) => total + product.quantity, 0);

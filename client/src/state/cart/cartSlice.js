@@ -6,7 +6,7 @@ const user =  await JSON.parse(localStorage.getItem('user')) || null;
 let response = null;
 if(user){
   response =  await userRequest.get(`/cart/single/${user._id}`);
-  console.log("response from cart ", response.data);
+  //console.log("response from cart ", response.data);
 }
 
 

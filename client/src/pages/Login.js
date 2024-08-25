@@ -65,7 +65,7 @@ function Login() {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log("Login te user " , user );
+  // cosole.log("Login te user " , user );
   const handleLogin = (e) => {
     e.preventDefault();
     // console.log("formData", formData);

@@ -7,9 +7,9 @@ const user = (localStorage.getItem("user"));
 // const currentUser = user ;
 const currentUser = user ? JSON.parse(user) : null;
 // console.log("ERriir here ");
-console.log("Current User", currentUser);
+//console.log("Current User", currentUser);
 const token = currentUser?.accessToken;
-console.log("Token", token);
+//console.log("Token", token);
 export const publicRequest = axios.create({
   baseURL,
 });
@@ -30,7 +30,7 @@ userRequest.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("No token in userRequest");
+   // console.log("No token in userRequest");
     return Promise.reject(error);
   }
 );
@@ -38,21 +38,21 @@ userRequest.interceptors.request.use(
 const testUserRequest = async () => {
   try {
     // Log the headers to ensure the token is being sent
-    console.log("Headers being sent:", userRequest.defaults.headers);
+    //console.log("Headers being sent:", userRequest.defaults.headers);
     
     const response = await userRequest.get("/test"); // Replace '/test' with a valid endpoint
-    console.log("Test request successful:", response.data);
+   // console.log("Test request successful:", response.data);
   } catch (error) {
     if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
+     // console.error('Response data:', error.response.data);
+      //console.error('Response status:', error.response.status);
+      //console.error('Response headers:', error.response.headers);
     } else if (error.request) {
-      console.error('Request data:', error.request);
+      //console.error('Request data:', error.request);
     } else {
-      console.error('Error message:', error.message);
+     // console.error('Error message:', error.message);
     }
-    console.error('Config:', error.config);
+    //console.error('Config:', error.config);
   }
 };
 

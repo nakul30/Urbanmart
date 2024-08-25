@@ -4,8 +4,8 @@ import { requestCart, cartSuccess, cartError } from "./cartSlice";
 export const cartfeatures =
   ({ data, type }) =>
   async (dispatch) => {
-    console.log("From Thunk", userRequest);
-    console.log("Type", typeof data._id);
+    // console.log("From Thunk", userRequest);
+    // console.log("Type", typeof data._id);
     const newData = {
       userId: data.userId,
       products: [
@@ -16,18 +16,18 @@ export const cartfeatures =
       ],
     };
     dispatch(requestCart());
-    console.log("requset cart", newData);
+    // console.log("requset cart", newData);
 
     try {
-      console.log("from try block")
+      // console.log("from try block")
       const response = await userRequest.post(`/cart/${type}`, newData);
-      console.log("response1.0", response.data);
+      // console.log("response1.0", response.data);
       const newresponse = await userRequest.get(`/cart/single/${newData.userId}`);
-      console.log("response", newresponse.data);
+      // console.log("response", newresponse.data);
       dispatch(cartSuccess(newresponse.data));
-      console.log("rsuccess", response); 
+      // console.log("rsuccess", response); 
     } catch (error) {
       dispatch(cartError(error.message));
-      console.log("error", newData);
+      // console.log("error", newData);
     }
   };

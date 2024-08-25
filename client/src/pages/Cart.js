@@ -165,7 +165,7 @@ const Button = styled.button`
 function Cart() {
 
   const cart = useSelector((state) => state.cart);
-  console.log("CArt from Cart Page " , cart);
+  // console.log("CArt from Cart Page " , cart);
   const navigate = useNavigate();
 
   const handleClick = () => {

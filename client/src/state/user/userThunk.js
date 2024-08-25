@@ -7,16 +7,16 @@ export const authenticate =
   ({ data, type }) =>
   async (dispatch) => {
     dispatch(requestAuth());
-    console.log("reqyes auth", data);
+    // console.log("reqyes auth", data);
     try {
       const response = await publicRequest.post(`/auth/${type}`, data);
-      console.log("response", response.data.accessToken);
+      // console.log("response", response.data.accessToken);
       localStorage.setItem('user', JSON.stringify(response.data));
       await dispatch(authSuccess(response.data));
-      console.log("rsuccess", response);
+      // console.log("rsuccess", response);
     } catch (error) {
       dispatch(authError(error.message));
-      console.log("error", data);
+      // console.log("error", data);
     }
   };
 // export const authenticate = createAsyncThunk(

@@ -17,17 +17,17 @@ function Products({ cat, filters, sorts }) {
     const [filteredProducts, setFilteredProducts] = useState([]);
   
     useEffect(() => {
-      console.log("Cat ", cat)
+      //console.log("Cat ", cat)
       const getProducts = async () => {
-        console.log("HERE")
+        //console.log("HERE")
         try {
           const url = cat ? `/product/all?cat=${cat}` : `/product/all`;
-          console.log("URL ", url)
+          //console.log("URL ", url)
           const resp = await publicRequest.get(url);
-          console.log("Response ", resp)
+          //console.log("Response ", resp)
           setProducts(resp.data);
         } catch (err) {
-          console.log(err);
+          //console.log(err);
         }
       };
       getProducts();
@@ -53,7 +53,7 @@ function Products({ cat, filters, sorts }) {
       }
     }, [sorts]);
     // console.log("Popular producs " , popularProducts)
-    console.log("Products ", products)
+    //console.log("Products ", products)
     return (
       
       <Container>

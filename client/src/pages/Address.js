@@ -80,10 +80,10 @@ const Button = styled.button`
 `;
 
 function Address() {
-  console.log(window)
+  // // console.log(window)
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
-  console.log("user from cart page ",user.current._id);
+  // // console.log("user from cart page ",user.current._id);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const order = useRef();
@@ -93,7 +93,7 @@ function Address() {
   };
 
   const handleSubmit = (e) => {
-    console.log("Form Data", formData);
+    // console.log("Form Data", formData);
     e.preventDefault();
     handlePayment();
   };
@@ -120,7 +120,7 @@ function Address() {
         //   "created_at": 1627381738
         // }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         return false;
       }
     };
@@ -157,7 +157,7 @@ function Address() {
           await userRequest.delete(`/cart/${user.current._id}`);
           navigate("/success", { state: { data: resp.data } });
         } catch (err) {
-          console.log(err);
+          // console.log(err);
         }
       },
       theme: {
