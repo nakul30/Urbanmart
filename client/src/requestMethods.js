@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:4000/api/";
+const baseURL = process.env.VITE_API_URL ;
 // const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const user = (localStorage.getItem("user"));
 // console.log("user", user);
