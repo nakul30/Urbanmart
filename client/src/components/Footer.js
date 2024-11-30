@@ -5,7 +5,6 @@ import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg
 import { mobile } from '../responsive'
 import { faEnvelope, faPhoneFlip, faShop } from '@fortawesome/free-solid-svg-icons'
 import { faCcVisa, faCcMastercard, faCcAmex, faCcDiscover } from '@fortawesome/free-brands-svg-icons'
-import { Link } from 'react-router-dom'
 const Container = styled.div`
   display: flex;
   ${mobile({
@@ -69,10 +68,6 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-`;
-const Payment = styled.img`
-  height: 15%;
-  width: 80%;
 `;
 function Footer() {
   const handleHome = () => {

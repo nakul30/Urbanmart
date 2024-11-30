@@ -20,7 +20,7 @@ export const cartfeatures =
 
     try {
       // console.log("from try block")
-      const response = await userRequest.post(`/cart/${type}`, newData);
+      // const response = await userRequest.post(`/cart/${type}`, newData);
       // console.log("response1.0", response.data);
       const newresponse = await userRequest.get(`/cart/single/${newData.userId}`);
       // console.log("response", newresponse.data);

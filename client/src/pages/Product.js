@@ -8,7 +8,7 @@ import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest,userRequest } from "../requestMethods";
+import { publicRequest } from "../requestMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { cartfeatures } from "../state/cart/cartThunk";
 
@@ -136,7 +136,7 @@ function Product() {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
-  const cart = useSelector(state=>state.cart);
+  // const cart = useSelector(state=>state.cart);
   // console.log("cart Before ",cart)
   useEffect(() => {
 
