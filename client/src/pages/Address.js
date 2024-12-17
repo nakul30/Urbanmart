@@ -25,6 +25,7 @@ const Nav = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
   ${mobile({
     fontSize: "24px",
   })}
@@ -168,13 +169,16 @@ function Address() {
     const rzpay = new window.Razorpay(options);
     rzpay.open();
   };
+  const handleLogoClick = () => {
+    navigate("/");
+  };
 
   return (
     <>
       {/* <div>Address</div> */}
       <Container>
         <Nav>
-          <Logo>Urbanmart</Logo>
+          <Logo onClick={handleLogoClick}>Urbanmart</Logo>
         </Nav>
         <Wrapper>
           <Title>Select Address</Title>
